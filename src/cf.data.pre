@@ -4502,6 +4502,14 @@ DOC_START
 	"0".  May be overridden with -u on the command line.
 DOC_END
 
+NAME: ofmb_port
+TYPE: ushort
+DEFAULT: 8888
+LOC: Config.Port.ofmb
+DOC_START
+	ofmb_port
+DOC_END
+
 NAME: htcp_port
 IFDEF: USE_HTCP
 TYPE: ushort

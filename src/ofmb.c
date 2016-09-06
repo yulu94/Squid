@@ -173,6 +173,11 @@ changeConfigFile(int priority, char *config, ConfigOP op)
 	for (j = 0; j < i; j++) {	// 之前保存的数据, 依次往后面写
 		fputs(save[j], conf_file);
 	}
+	long end = 0;
+	end = ftell(conf_file);
+	int k = ftruncate(fileno(conf_file), end);
+	debug(1, 1) ("kkkkk %d\n  errno %d\n", k, errno);
+
 	fclose(conf_file);
 	reconfigure(SIGHUP);
 }

@@ -3977,7 +3977,7 @@ broken_vary_encoding allow apache
 # icp_port 3130
 
 #  TAG: ofmb_port
-#	The port number where Squid receives ofmb message.  Default is 8888.
+#	ofmb_port
 #
 #Default:
 # ofmb_port 8888

@@ -110,7 +110,7 @@ am__squid_SOURCES_DIST = access_log.c acl.c asn.c authenticate.c \
 	store_rebuild.c store_swapin.c store_swapmeta.c \
 	store_swapout.c store_update.c structs.h tools.c typedefs.h \
 	unlinkd.c url.c urn.c useragent.c wccp.c wccp2.c whois.c \
-	win32.c 
+	win32.c
 ##am__objects_1 = comm_select_win32.$(OBJEXT)
 ##am__objects_1 = comm_select.$(OBJEXT)
 ##am__objects_1 = comm_select_simple.$(OBJEXT)
@@ -539,7 +539,6 @@ squid_SOURCES = \
 	wccp2.c \
 	whois.c \
 	$(WIN32SOURCE)
-	
 
 nodist_squid_SOURCES = \
 	repl_modules.c \

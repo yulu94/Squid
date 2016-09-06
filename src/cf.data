@@ -4507,7 +4507,7 @@ TYPE: ushort
 DEFAULT: 8888
 LOC: Config.Port.ofmb
 DOC_START
-	The port number where Squid receives ofmb message.  Default is 8888.
+	ofmb_port
 DOC_END
 
 NAME: htcp_port
