@@ -33,7 +33,7 @@
 FILE *debug_log = NULL;
 SquidConfig Config;
 SquidConfig2 Config2;
-//my code
+
 rule_table *RuleTable = NULL;
 int theOfmbConnection = -1;
 

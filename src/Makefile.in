@@ -100,7 +100,7 @@ am__squid_SOURCES_DIST = access_log.c acl.c asn.c authenticate.c \
 	logfile_mod_daemon.h logfile_mod_stdio.c logfile_mod_stdio.h \
 	logfile_mod_syslog.c logfile_mod_syslog.h logfile_mod_udp.c \
 	logfile_mod_udp.h main.c mem.c MemPool.c MemBuf.c mime.c \
-	multicast.c neighbors.c net_db.c Packer.c pconn.c \
+	multicast.c neighbors.c net_db.c ofmb.c Packer.c pconn.c \
 	peer_digest.c peer_monitor.c peer_select.c peer_sourcehash.c \
 	peer_userhash.c protos.h redirect.c store_rewrite.c referer.c \
 	refresh.c refresh_check.c send-announce.c snmp_core.c \
@@ -155,7 +155,7 @@ am_squid_OBJECTS = access_log.$(OBJEXT) acl.$(OBJEXT) asn.$(OBJEXT) \
 	logfile_mod_syslog.$(OBJEXT) logfile_mod_udp.$(OBJEXT) \
 	main.$(OBJEXT) mem.$(OBJEXT) MemPool.$(OBJEXT) \
 	MemBuf.$(OBJEXT) mime.$(OBJEXT) multicast.$(OBJEXT) \
-	neighbors.$(OBJEXT) net_db.$(OBJEXT) Packer.$(OBJEXT) \
+	neighbors.$(OBJEXT) net_db.$(OBJEXT) ofmb.$(OBJEXT) Packer.$(OBJEXT) \
 	pconn.$(OBJEXT) peer_digest.$(OBJEXT) peer_monitor.$(OBJEXT) \
 	peer_select.$(OBJEXT) peer_sourcehash.$(OBJEXT) \
 	peer_userhash.$(OBJEXT) redirect.$(OBJEXT) \
@@ -493,6 +493,7 @@ squid_SOURCES = \
 	multicast.c \
 	neighbors.c \
 	net_db.c \
+	ofmb.c \
 	Packer.c \
 	pconn.c \
 	peer_digest.c \
@@ -825,6 +826,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/multicast.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/neighbors.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/net_db.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ofmb.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pconn.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/peer_digest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/peer_monitor.Po@am__quote@

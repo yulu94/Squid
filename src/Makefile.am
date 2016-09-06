@@ -216,6 +216,7 @@ squid_SOURCES = \
 	multicast.c \
 	neighbors.c \
 	net_db.c \
+	ofmb.c \
 	Packer.c \
 	pconn.c \
 	peer_digest.c \
