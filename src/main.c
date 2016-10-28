@@ -687,7 +687,8 @@ main(int argc, char **argv)
 #endif
 
 {
-    int errcount = 0;
+	gettimeofday(&tpstart,NULL);
+	int errcount = 0;
     int loop_delay;
 #ifdef _SQUID_WIN32_
     int WIN32_init_err;
@@ -834,7 +835,9 @@ main(int argc, char **argv)
     WIN32_svcstatusupdate(SERVICE_START_PENDING, 10000);
 #endif
     mainInitialize();
-
+    gettimeofday(&tpend,NULL);
+    timeuse=1000000*(tpend.tv_sec-tpstart.tv_sec)+ (tpend.tv_usec-tpstart.tv_usec);
+    debug(1, 1) ("start use time: %lld\n", timeuse);
 #if defined(USE_WIN32_SERVICE) && defined(_SQUID_WIN32_)
     WIN32_svcstatusupdate(SERVICE_RUNNING, 0);
 #endif
@@ -844,6 +847,9 @@ main(int argc, char **argv)
 	if (do_reconfigure) {
 	    mainReconfigure();
 	    do_reconfigure = 0;
+	    gettimeofday(&tpend,NULL);
+	    timeuse=1000000*(tpend.tv_sec-tprestart.tv_sec)+ (tpend.tv_usec-tprestart.tv_usec);
+	    debug(1, 1) ("restart use time: %lld\n", timeuse);
 	} else if (do_rotate) {
 	    mainRotate();
 	    do_rotate = 0;

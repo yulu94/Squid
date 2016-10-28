@@ -41,6 +41,10 @@ extern SquidConfig2 Config2;
 //my code
 extern rule_table *RuleTable;	/* NULL */
 extern int theOfmbConnection;
+extern struct timeval tpstart;
+extern struct timeval tpend;
+extern struct timeval tprestart;
+extern long long timeuse;
 
 extern char *ConfigFile;	/* NULL */
 extern char *IcpOpcodeStr[];

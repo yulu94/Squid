@@ -33,10 +33,10 @@
 FILE *debug_log = NULL;
 SquidConfig Config;
 SquidConfig2 Config2;
-
 rule_table *RuleTable = NULL;
 int theOfmbConnection = -1;
-
+struct timeval tpstart, tpend, tprestart;
+long long timeuse;
 char *ConfigFile = NULL;
 const char *dns_error_message = NULL;
 char tmp_error_buf[ERROR_BUF_SZ];

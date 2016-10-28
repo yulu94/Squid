@@ -52,6 +52,7 @@ ofmbConnectionsOpen(void)
 			inet_ntoa(listen_addr), (int) port, theOfmbConnection);
 
 	ActionType action_type = HTTP_ACCESS;
+	RuleTable = NULL;
 	configToRule(Config.accessList.http, action_type);
 	rule_send();
 }
@@ -114,6 +115,7 @@ ofmbReadRequest(int fd, void *data)
 	len = recvfrom(fd, buf, sizeof(buf), 0, (struct sockaddr *) &from, &flen);
 
 	if (len>0) {
+		gettimeofday(&tprestart,NULL);
 		memcpy(&priority, buf, sizeof(int));
 		memcpy(&op, buf+sizeof(int), sizeof(ConfigOP));
 		if (len-sizeof(int)-sizeof(ConfigOP) > 0){
@@ -152,7 +154,7 @@ changeConfigFile(int priority, char *config, ConfigOP op)
 
 	}
 	if (op == Modify || op == Delete) offset2 = ftell(conf_file);
-	char save[120][1024];
+	char save[130][1024];
 	i = 0; // 清0, 记录后面共有多少行
 	if (op == Add){
 		fseek(conf_file, offset1, SEEK_SET);
@@ -176,7 +178,7 @@ changeConfigFile(int priority, char *config, ConfigOP op)
 	long end = 0;
 	end = ftell(conf_file);
 	int k = ftruncate(fileno(conf_file), end);
-	debug(1, 1) ("kkkkk %d\n  errno %d\n", k, errno);
+	debug(1, 1) ("kkkkk %d  errno %d\n", k, errno);
 
 	fclose(conf_file);
 	reconfigure(SIGHUP);
@@ -417,7 +419,7 @@ protoAcl(rule_acl_var *aclVar, intlist *proto){
 void
 rule_send()
 {
-	int sock_cli = socket(AF_INET, SOCK_STREAM, 0);
+	int sock_cli = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 	struct sockaddr_in servaddr;
 	memset(&servaddr, 0, sizeof(servaddr));
@@ -430,15 +432,27 @@ rule_send()
 		return;
 	}
     char sendbuf[1024];
+    char recvbuf[10];
     rule_table *cur;
     int message_len;
-    for (cur=RuleTable; cur!=NULL; cur = cur->next){
+    int recv_ok = 1;
+    int recv_len;
+    for (cur=RuleTable; cur!=NULL&&recv_ok; cur = cur->next){
     	message_len = cur->length;
     	memcpy(sendbuf, &(cur->matches), message_len);
     	int len = send(sock_cli, sendbuf, message_len, 0);
-    	debug(1, 1) ("properties allow:%d\n", cur->properties.allow);
-    	debug(1, 1) ("properties lentgh:%d\n", cur->properties.length);
+    	//debug(1, 1) ("properties allow:%d\n", cur->properties.allow);
+    	//debug(1, 1) ("properties lentgh:%d\n", cur->properties.length);
     	debug(1, 1) ("send len:%d\n", len);
+    	recv_ok = 0;
+    	recv_len = recv(sock_cli, recvbuf, 10, 0);
+    	recvbuf[recv_len] = '\0';
+    	if (strcmp(recvbuf, "ok") == 0)
+    		recv_ok = 1;
+    }
+    if(recv_ok){
+    	strcpy(sendbuf, "over");
+    	send(sock_cli, sendbuf, strlen(sendbuf), 0);
     }
 	close(sock_cli);
 }
